@@ -57,6 +57,18 @@ public class WebDriverHelper {
     }
   }
 
+  public boolean isElementVisible(By locator, String elementName, long timeout) {
+    WebDriverWait customWait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
+    try {
+      logger.info("Checking if Element is visible '{}'", elementName);
+      customWait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+      return true;
+    } catch (Exception e) {
+      logger.info("Element '{}' is not visible", elementName);
+      return false;
+    }
+  }
+
   public boolean isElementVisible(Locator locator, String elementName, Object... replaceValues) {
     By byLocator = locator.resolveBy(replaceValues);
     try {
@@ -96,7 +108,7 @@ public class WebDriverHelper {
   }
 
   public void moveToElement(By locator, String elementName) {
-    logger.info("Using Actions, Moving on Element '{}'", elementName);
+    logger.info("[Actions] Moving on Element '{}'", elementName);
     Actions actions = new Actions(driver);
     actions.moveToElement(getElement(locator, elementName), 0, 0).perform();
   }

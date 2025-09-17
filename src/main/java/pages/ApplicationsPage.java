@@ -18,6 +18,9 @@ public class ApplicationsPage extends BasePage {
   private By tableContainer = By.xpath("//*[contains(@class, 'tableContainer')]");
   private Locator tableRowWithDataKey =
       Locator.xpath("//*[@data-key > '%s'][descendant::*[@role='row']]");
+  private By tableNextPageIcon =
+      By.xpath(
+          "//button[contains(@class, 'footerButton')][last()][not(contains(@class, 'disabled'))]");
 
   public void waitForApplicationsPageToLoad() {
     webDriverHelper.waitForElementToVisible(applicationsHeader, "Applications Header");
@@ -27,21 +30,28 @@ public class ApplicationsPage extends BasePage {
 
   public int getApplicationsRowCount() {
     int totalRows = 0;
-    String lastRowDataKey = "-1";
-
     while (true) {
-      List<WebElement> rows =
-          webDriverHelper.getAllWebElements(
-              tableRowWithDataKey, "Table Rows with Data Key", 10, lastRowDataKey);
-      if (rows.isEmpty()) {
+      String lastRowDataKey = "-1";
+      while (true) {
+        List<WebElement> rows =
+            webDriverHelper.getAllWebElements(
+                tableRowWithDataKey, "Table Rows with Data Key", 10, lastRowDataKey);
+        if (rows.isEmpty()) {
+          break;
+        }
+        totalRows += rows.size();
+
+        WebElement lastRow = rows.get(rows.size() - 1);
+        lastRowDataKey = lastRow.getAttribute("data-key");
+
+        webDriverHelper.scrollIntoView(lastRow, "Last Visible Row");
+      }
+
+      if (!webDriverHelper.isElementVisible(tableNextPageIcon, "Enabled Table Next Page Icon", 5)) {
         break;
       }
-      totalRows += rows.size();
 
-      WebElement lastRow = rows.get(rows.size() - 1);
-      lastRowDataKey = lastRow.getAttribute("data-key");
-
-      webDriverHelper.scrollIntoView(lastRow, "Last Visible Row");
+      webDriverHelper.click(tableNextPageIcon, "Enabled Table Next Page Icon");
     }
     return totalRows;
   }
