@@ -2,6 +2,8 @@ package base;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.InvalidArgumentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -14,7 +16,8 @@ import utils.ReadProperties;
 
 public class WebDriverManager {
   private static WebDriver driver;
-  private static ReadProperties readProperties = new ReadProperties();
+  private static final Logger logger = LogManager.getLogger(WebDriverManager.class);
+  private static ReadProperties readProperties = ReadProperties.getInstance();
 
   private static List<String> getBrowserOptions(String browser, boolean headless) {
     List<String> options = new ArrayList<>();
@@ -40,6 +43,8 @@ public class WebDriverManager {
         Boolean.parseBoolean(
             System.getProperty("headless", readProperties.getProperty("headless")).toLowerCase());
 
+    logger.info("Set up browser {} with headless {}", browser, headless);
+
     switch (browser) {
       case "chrome":
         ChromeOptions chromeOptions = new ChromeOptions();
@@ -62,8 +67,6 @@ public class WebDriverManager {
       default:
         throw new InvalidArgumentException("Invalid browser: " + browser);
     }
-
-    driver.manage().window().maximize();
     return driver;
   }
 }
