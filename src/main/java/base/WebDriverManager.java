@@ -21,7 +21,6 @@ public class WebDriverManager {
 
   private static List<String> getBrowserOptions(String browser, boolean headless) {
     List<String> options = new ArrayList<>();
-    options.add("--start-maximized");
 
     if (headless) {
       if (browser.equals("firefox")) {
@@ -32,6 +31,9 @@ public class WebDriverManager {
       options.add("--disable-gpu");
       options.add("--no-sandbox");
       options.add("--disable-dev-shm-usage");
+      options.add("--window-size=1920,1080");
+    } else {
+      options.add("--start-maximized");
     }
     return options;
   }
