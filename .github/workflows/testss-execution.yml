@@ -41,15 +41,20 @@ jobs:
       - name: Checkout the Repository to Runner
         uses: actions/checkout@v4
 
-      - name: Cache Maven dependencies
-        uses: actions/cache@v4
-        with:
-          path: /root/.m2/repository
-          key: maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: maven-
-
       - name: Start Docker Services (Selenium Grid, Maven)
         run: docker compose up -d
+
+
+      - name: Wait for Selenium Grid
+        run: |
+          for i in {1..30}; do
+            if curl -s http://localhost:4444/wd/hub/status | grep -q '"ready":true'; then
+              echo "Selenium Grid is ready!"
+              break
+            fi
+            echo "Waiting for Selenium Grid..."
+            sleep 2
+          done
 
       - name: Execute Test
         shell: bash
