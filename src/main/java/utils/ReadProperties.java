@@ -8,23 +8,34 @@ import org.apache.logging.log4j.Logger;
 
 public class ReadProperties {
 
-  private Properties prop;
-  private static Logger logger = LogManager.getLogger(ReadProperties.class);
-  
-  public ReadProperties() {
+  private static ReadProperties readPropertiesInstance;
+  private final Properties prop;
+  private static final Logger logger = LogManager.getLogger(ReadProperties.class);
+
+  private ReadProperties() {
     this.prop = new Properties();
     String env =
         System.getenv("env") != null
             ? System.getenv("env").toLowerCase()
             : System.getProperty("env", "sandbox").toLowerCase();
+    String propertiesFileName = env + "-config.properties";
     try (InputStream inputStream =
-        ReadProperties.class.getResourceAsStream(env + "-config.properties")) {
-      if (inputStream == null) {}
-
+        ReadProperties.class.getClassLoader().getResourceAsStream(propertiesFileName)) {
+      if (inputStream == null) {
+        logger.error("Properties file with name '{}' not found", propertiesFileName);
+      }
       prop.load(inputStream);
     } catch (IOException e) {
-      logger.error("IOException occurred while reading Properties", e);
+      logger.error(
+          "IOException occurred while reading Properties from File {}", propertiesFileName, e);
     }
+  }
+
+  public static synchronized ReadProperties getInstance() {
+    if (readPropertiesInstance == null) {
+      readPropertiesInstance = new ReadProperties();
+    }
+    return readPropertiesInstance;
   }
 
   public String getProperty(String key) {
