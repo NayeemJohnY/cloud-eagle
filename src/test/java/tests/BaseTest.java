@@ -1,7 +1,8 @@
 package tests;
 
 import base.WebDriverManager;
-import java.io.File;
+import io.qameta.allure.Allure;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -40,18 +41,27 @@ public class BaseTest {
       String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
       String filename = methodName + "_" + timestamp + ".png";
 
-      Path destDir = Paths.get("test-results", "screenshots");
-      Path destFile = destDir.resolve(filename);
-
       try {
+        // Capture screenshot as bytes
+        TakesScreenshot takeScreenshot = (TakesScreenshot) driver;
+        byte[] screenshotBytes = takeScreenshot.getScreenshotAs(OutputType.BYTES);
+
+        // Save to file for local storage
+        Path destDir = Paths.get("test-results", "screenshots");
+        Path destFile = destDir.resolve(filename);
         Files.createDirectories(destDir);
+        Files.write(destFile, screenshotBytes);
 
-        TakesScreenshot takeScreenshot = (TakesScreenshot) (driver);
-        File tempFile = takeScreenshot.getScreenshotAs(OutputType.FILE);
+        // Attach screenshot to Allure report
+        Allure.addAttachment(
+            methodName + " - Failure Screenshot",
+            "image/png",
+            new ByteArrayInputStream(screenshotBytes),
+            ".png");
 
-        Files.copy(tempFile.toPath(), destFile);
-
-        logger.info("Screenshot saved to: " + destFile.toAbsolutePath());
+        logger.info(
+            "Screenshot captured and attached to Allure report. Saved locally to: "
+                + destFile.toAbsolutePath());
       } catch (IOException e) {
         logger.error("Failed to capture screenshot", e);
       }
