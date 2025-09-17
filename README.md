@@ -7,6 +7,7 @@ This is a Java Selenium project for automated web testing using Selenium WebDriv
 - Java JDK 17 or higher
 - Maven 3.6 or higher
 - A web browser (e.g., Chrome) with corresponding WebDriver (handled automatically by WebDriverManager)
+- This project uses Allure for test reporting. [Official Docs](https://allurereport.org/docs/).
 
 ## Setup
 
