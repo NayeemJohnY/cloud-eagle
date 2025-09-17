@@ -39,6 +39,6 @@ public class ReadProperties {
   }
 
   public String getProperty(String key) {
-    return prop.getProperty(key).trim();
+    return prop.getProperty(key) == null ? null: prop.getProperty(key).trim();
   }
 }
