@@ -1,43 +1,42 @@
 name: Test Execution
 
 on:
-    workflow_dispatch:
-      inputs:
-        test_name:
-          description: Test Method / Test class Name (e.g., MyTestClass#myTestMethod or MyTestClass1, MyTestClass2)
-          required: false
-          type: string
-  
-        parallel:
-          description: Run Test in Parallel
-          type: boolean
-          default: false
+  workflow_dispatch:
+    inputs:
+      env:
+        description: Select Test Environment
+        type: choice
+        options:
+          - sandbox
+          - prod
 
-        browser:
-          description: Select Browser
-          type: choice
-          options:
-            - chrome
-            - firefox
-            - edge
-        
-        headless:
-          description: Run in Headless Mode
-          type: boolean
-          default: true
+      browser:
+        description: Select Browser
+        type: choice
+        options:
+          - chrome
+          - firefox
+          - edge
 
+      headless:
+        description: Run in Headless Mode
+        type: boolean
+        default: true
 
-        env:
-          description: Select Test Environment
-          type: choice
-          options:
-            - sandbox
-            - prod
+      parallel:
+        description: Run Test in Parallel
+        type: boolean
+        default: false
+
+      test_name:
+        description: Test Method / Test class Name (e.g., MyTestClass#myTestMethod or MyTestClass1, MyTestClass2)
+        required: false
+        type: string
 
 jobs:
   execute-test:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout the Repository to Runner
         uses: actions/checkout@v4
@@ -48,14 +47,14 @@ jobs:
           path: /root/.m2/repository
           key: maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: maven-
-    
+
       - name: Start Docker Services (Selenium Grid, Maven)
         run: docker compose -f selenium-grid-maven-docker-compose.yml up -d
 
       - name: Execute Test
         shell: bash
         run: |
-          EXTRA_PARAMS=""
+          EXTRA_PARAMS="-Dgrid.url=http://localhost:4444/wd/hub"
 
           if ${{ inputs.parallel }} ; then
             EXTRA_PARAMS+=" -Dparallel=true";
@@ -74,11 +73,11 @@ jobs:
           fi
 
           echo "Running with: mvn clean test ${EXTRA_PARAMS}"
-          docker-compose run --rm tests mvn test ${EXTRA_PARAMS}
+          docker compose run --rm tests mvn test ${EXTRA_PARAMS}
 
       - name: Stop Docker Services (Selenium Grid, Maven)
         run: docker compose -f selenium-grid-maven-docker-compose.yml down
-    
+
       - name: Upload Test Results
         if: success() || failure()
         uses: actions/upload-artifact@v4
