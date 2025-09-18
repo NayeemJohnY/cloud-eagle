@@ -47,4 +47,10 @@ services:
     volumes:
       - .:/workspace
     working_dir: /workspace
-    command: tail -f dev/null # To keep container running
+    environment:
+      BROWSER: ${BROWSER:-chrome}      # default to chrome if not set
+      HEADLESS: ${HEADLESS:-true}      # default to true if not set
+      GRID_URL: ${GRID_URL:-http://selenium-hub:4444/wd/hub}
+      PARALLEL: ${PARALLEL:-false}
+      TEST: ${TEST:-}
+    command: mvn clean test --Dbrowser=${BROWSER} -Dheadless=${HEADLESS} -Dtest=${TEST}
