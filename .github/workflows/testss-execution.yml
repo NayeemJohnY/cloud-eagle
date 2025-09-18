@@ -47,12 +47,12 @@ jobs:
 
       - name: Wait for Selenium Grid
         run: |
-          for i in {1..30}; do
-            if curl -s http://localhost:4444/wd/hub/status | grep -q '"ready":true'; then
-              echo "Selenium Grid is ready!"
+          for i in {1..60}; do
+            if [ "$(curl -s http://localhost:4444/wd/hub/status | jq -r '.value.ready')" == "true" ]; then
+              echo "✅ Selenium Grid is ready!"
               break
             fi
-            echo "Waiting for Selenium Grid..."
+            echo "⏳ Waiting for Selenium Grid... ($i)"
             sleep 2
           done
 
