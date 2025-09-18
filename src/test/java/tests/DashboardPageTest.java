@@ -6,8 +6,15 @@ import pages.ApplicationsPage;
 import pages.DashboardPage;
 import pages.LoginPage;
 
+/**
+ * Test class for verifying functionalities on the Dashboard page.
+ */
 public class DashboardPageTest extends BaseTest {
 
+  /**
+   * Verifies that the count of managed applications shown on the dashboard
+   * matches the actual number of applications listed in the Applications page.
+   */
   @Test
   public void testVerifyManagedApplicationsCountShownInDashboard() {
     // Step 1: Login

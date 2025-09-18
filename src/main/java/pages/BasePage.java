@@ -6,18 +6,22 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import utils.ReadProperties;
 
+/** Abstract base class for page objects. */
 public class BasePage {
 
   protected final WebDriver driver;
   protected final WebDriverHelper webDriverHelper;
   protected static final Logger logger = LogManager.getLogger();
-    protected ReadProperties readProperties = ReadProperties.getInstance();
+  protected ReadProperties readProperties = ReadProperties.getInstance();
 
-
+  /**
+   * Constructs BasePage and initializes helpers.
+   *
+   * @param driver WebDriver instance
+   */
   public BasePage(WebDriver driver) {
     this.driver = driver;
     long timeoutInSeconds = Long.parseLong(readProperties.getProperty("timeoutInSeconds"));
     this.webDriverHelper = new WebDriverHelper(driver, timeoutInSeconds);
   }
-
 }

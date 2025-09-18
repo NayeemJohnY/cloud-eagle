@@ -6,8 +6,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+/** Page object for applications functionality. */
 public class ApplicationsPage extends BasePage {
 
+  /**
+   * Constructs ApplicationsPage with WebDriver.
+   *
+   * @param driver WebDriver instance
+   */
   public ApplicationsPage(WebDriver driver) {
     super(driver);
   }
@@ -22,12 +28,22 @@ public class ApplicationsPage extends BasePage {
       By.xpath(
           "//button[contains(@class, 'footerButton')][last()][not(contains(@class, 'disabled'))]");
 
+  /** Waits for applications page elements to load. */
   public void waitForApplicationsPageToLoad() {
     webDriverHelper.waitForElementToVisible(applicationsHeader, "Applications Header");
     webDriverHelper.waitForElementToVisible(cardContainer, "Card Container");
     webDriverHelper.waitForElementToVisible(tableContainer, "Table Container");
   }
 
+  /**
+   * Returns the total number of rows in the applications table, including all paginated pages.
+   *
+   * <p>Iterates through each page, collects all rows, and clicks the next page icon until no more
+   * pages are available. Uses the last row's data-key to fetch subsequent rows and scrolls into
+   * view for each last row.
+   *
+   * @return Total number of application rows across all pages
+   */
   public int getApplicationsRowCount() {
     int totalRows = 0;
     while (true) {
