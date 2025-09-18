@@ -83,11 +83,11 @@ jobs:
       - name: Stop Docker Services (Selenium Grid, Maven)
         if: always()
         run: |
-          docker-compose logs selenium-hub
-          docker-compose logs chrome
-          docker-compose logs firefox
-          docker-compose logs edge
-          docker-compose logs tests
+          docker compose logs selenium-hub
+          docker compose logs chrome
+          docker compose logs firefox
+          docker compose logs edge
+          docker compose logs tests
           docker compose down
 
       - name: Upload Test Results
