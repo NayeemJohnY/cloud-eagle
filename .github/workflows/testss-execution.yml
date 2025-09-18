@@ -41,23 +41,31 @@ jobs:
       - name: Checkout the Repository to Runner
         uses: actions/checkout@v4
 
-      - name: Run Maven Test
+      - name: Start Docker Services (Selenium Grid, Maven)
         run: docker compose up -d
-        env:
-          ENV: ${{ inputs.env }}
-          BROWSER: ${{ inputs.browser }}
-          HEADLESS: ${{ inputs.headless }}
-          PARALLEL: ${{ inputs.parallel }}
-          TEST: ${{ inputs.test_name }}
-
-      - name: Docker Compose Down
+      
+      - name: Execute Test
+        shell: bash
+        run: |
+          EXTRA_PARAMS="-Dgrid.url=http://selenium-hub:4444/wd/hub"
+          if ${{ inputs.parallel }} ; then
+            EXTRA_PARAMS+=" -Dparallel=true";
+          fi
+          if [ "${{ inputs.test_name }}" != "" ]; then
+            EXTRA_PARAMS+=' -Dtest=${{ inputs.test_name }}';
+          fi
+          if [ "${{ inputs.browser }}" != "" ]; then
+            EXTRA_PARAMS+=' -Dbrowser=${{ inputs.browser }}';
+          fi
+          if [ "${{ inputs.headless }}" != "" ]; then
+            EXTRA_PARAMS+=' -Dheadless=${{ inputs.headless }}';
+          fi
+          echo "Running with: mvn clean test ${EXTRA_PARAMS}"
+          docker compose run --rm tests mvn test ${EXTRA_PARAMS}
+      
+      - name: Stop Docker Services (Selenium Grid, Maven)
         if: always()
         run: |
-          docker compose logs selenium-hub
-          docker compose logs chrome
-          docker compose logs firefox
-          docker compose logs edge
-          docker compose logs tests
           docker compose down
 
       - name: Upload Test Results
