@@ -41,46 +41,16 @@ jobs:
       - name: Checkout the Repository to Runner
         uses: actions/checkout@v4
 
-      - name: Start Docker Services (Selenium Grid, Maven)
+      - name: Run Maven Test
         run: docker compose up -d
+        env:
+          ENV: ${{ inputs.env }}
+          BROWSER: ${{ inputs.browser }}
+          HEADLESS: ${{ inputs.headless }}
+          PARALLEL: ${{ inputs.parallel }}
+          TEST: ${{ inputs.test_name }}
 
-
-      - name: Wait for Selenium Grid
-        run: |
-          for i in {1..60}; do
-            if [ "$(curl -s http://selenium-hub:4444/wd/hub/status | jq -r '.value.ready')" == "true" ]; then
-              echo "✅ Selenium Grid is ready!"
-              break
-            fi
-            echo "⏳ Waiting for Selenium Grid... ($i)"
-            sleep 2
-          done
-
-      - name: Execute Test
-        shell: bash
-        run: |
-          EXTRA_PARAMS="-Dgrid.url=http://localhost:4444/wd/hub"
-
-          if ${{ inputs.parallel }} ; then
-            EXTRA_PARAMS+=" -Dparallel=true";
-          fi
-
-          if [ "${{ inputs.test_name }}" != "" ]; then
-            EXTRA_PARAMS+=' -Dtest=${{ inputs.test_name }}';
-          fi
-
-          if [ "${{ inputs.browser }}" != "" ]; then
-            EXTRA_PARAMS+=' -Dbrowser=${{ inputs.browser }}';
-          fi
-
-          if [ "${{ inputs.headless }}" != "" ]; then
-            EXTRA_PARAMS+=' -Dheadless=${{ inputs.headless }}';
-          fi
-
-          echo "Running with: mvn clean test ${EXTRA_PARAMS}"
-          docker compose run --rm tests mvn test ${EXTRA_PARAMS}
-
-      - name: Stop Docker Services (Selenium Grid, Maven)
+      - name: Docker Compose Down
         if: always()
         run: |
           docker compose logs selenium-hub
