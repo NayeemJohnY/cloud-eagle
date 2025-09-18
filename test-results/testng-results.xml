@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="2" passed="2" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2025-09-18T09:49:36 IST" name="cloud-eagle-manage-saas-test-automation" finished-at="2025-09-18T09:51:07 IST" duration-ms="90481">
+    <groups>
+    </groups>
+    <test started-at="2025-09-18T09:49:36 IST" name="LoginPageTest" finished-at="2025-09-18T09:50:18 IST" duration-ms="41902">
+      <class name="tests.LoginPageTest">
+        <test-method is-config="true" signature="setup()[pri:0, instance:tests.LoginPageTest@158a3b2e]" started-at="2025-09-18T09:49:36 IST" name="setup" finished-at="2025-09-18T09:49:59 IST" duration-ms="23181" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="testShouldAbleToLoginWithValidCredentials()[pri:0, instance:tests.LoginPageTest@158a3b2e]" started-at="2025-09-18T09:50:00 IST" name="testShouldAbleToLoginWithValidCredentials" finished-at="2025-09-18T09:50:16 IST" duration-ms="16086" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testShouldAbleToLoginWithValidCredentials -->
+        <test-method is-config="true" signature="teardown(org.testng.ITestResult)[pri:0, instance:tests.LoginPageTest@158a3b2e]" started-at="2025-09-18T09:50:16 IST" name="teardown" finished-at="2025-09-18T09:50:18 IST" duration-ms="2419" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=testShouldAbleToLoginWithValidCredentials status=SUCCESS method=LoginPageTest.testShouldAbleToLoginWithValidCredentials()[pri:0, instance:tests.LoginPageTest@158a3b2e] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- teardown -->
+      </class> <!-- tests.LoginPageTest -->
+    </test> <!-- LoginPageTest -->
+    <test started-at="2025-09-18T09:50:18 IST" name="DashboardPageTest" finished-at="2025-09-18T09:51:07 IST" duration-ms="48544">
+      <class name="tests.DashboardPageTest">
+        <test-method is-config="true" signature="setup()[pri:0, instance:tests.DashboardPageTest@710b18a6]" started-at="2025-09-18T09:50:18 IST" name="setup" finished-at="2025-09-18T09:50:28 IST" duration-ms="9476" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="testVerifyManagedApplicationsCountShownInDashboard()[pri:0, instance:tests.DashboardPageTest@710b18a6]" started-at="2025-09-18T09:50:28 IST" name="testVerifyManagedApplicationsCountShownInDashboard" finished-at="2025-09-18T09:51:04 IST" duration-ms="36557" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testVerifyManagedApplicationsCountShownInDashboard -->
+        <test-method is-config="true" signature="teardown(org.testng.ITestResult)[pri:0, instance:tests.DashboardPageTest@710b18a6]" started-at="2025-09-18T09:51:04 IST" name="teardown" finished-at="2025-09-18T09:51:07 IST" duration-ms="2487" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=testVerifyManagedApplicationsCountShownInDashboard status=SUCCESS method=DashboardPageTest.testVerifyManagedApplicationsCountShownInDashboard()[pri:0, instance:tests.DashboardPageTest@710b18a6] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- teardown -->
+      </class> <!-- tests.DashboardPageTest -->
+    </test> <!-- DashboardPageTest -->
+  </suite> <!-- cloud-eagle-manage-saas-test-automation -->
+</testng-results>

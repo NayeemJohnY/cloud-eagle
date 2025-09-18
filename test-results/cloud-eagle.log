@@ -1,0 +1,39 @@
+[2025-09-18 09:49:36.744 IST] [Thread ID: 3] [INFO] Set up browser chrome with headless false, grid URL: null
+[2025-09-18 09:49:52.380 IST] [Thread ID: 3] [INFO] Using local WebDriver
+[2025-09-18 09:49:52.381 IST] [Thread ID: 3] [INFO] Launching application URL: https://sandbox20.cloudeagle.info/
+[2025-09-18 09:50:00.083 IST] [Thread ID: 3] [INFO] <=========== Test Started : testShouldAbleToLoginWithValidCredentials ===========>
+[2025-09-18 09:50:00.114 IST] [Thread ID: 3] [INFO] Send Keys 'support+sandbox20@cloudeagle.ai' to Element 'Email Field'
+[2025-09-18 09:50:03.289 IST] [Thread ID: 3] [INFO] Send Keys '******' to Element 'Password Field'
+[2025-09-18 09:50:03.530 IST] [Thread ID: 3] [INFO] Clicking on Element 'Sign In Button'
+[2025-09-18 09:50:03.785 IST] [Thread ID: 3] [INFO] Waiting for Element to visible 'Card Title' with replace values '[Managed Applications]'
+[2025-09-18 09:50:15.473 IST] [Thread ID: 3] [INFO] Waiting for Element to visible 'Profile Username' with replace values '[support+sandbox20@cloudeagle.ai]'
+[2025-09-18 09:50:16.079 IST] [Thread ID: 3] [INFO] Checking if Element is visible 'Dashboard Header'
+[2025-09-18 09:50:16.129 IST] [Thread ID: 3] [INFO] <=========== Test Passed : testShouldAbleToLoginWithValidCredentials ===========>
+
+[2025-09-18 09:50:18.613 IST] [Thread ID: 3] [INFO] Set up browser chrome with headless false, grid URL: null
+[2025-09-18 09:50:22.007 IST] [Thread ID: 3] [INFO] Using local WebDriver
+[2025-09-18 09:50:22.008 IST] [Thread ID: 3] [INFO] Launching application URL: https://sandbox20.cloudeagle.info/
+[2025-09-18 09:50:28.099 IST] [Thread ID: 3] [INFO] <=========== Test Started : testVerifyManagedApplicationsCountShownInDashboard ===========>
+[2025-09-18 09:50:28.101 IST] [Thread ID: 3] [INFO] Send Keys 'support+sandbox20@cloudeagle.ai' to Element 'Email Field'
+[2025-09-18 09:50:31.059 IST] [Thread ID: 3] [INFO] Send Keys '******' to Element 'Password Field'
+[2025-09-18 09:50:31.191 IST] [Thread ID: 3] [INFO] Clicking on Element 'Sign In Button'
+[2025-09-18 09:50:31.458 IST] [Thread ID: 3] [INFO] Waiting for Element to visible 'Card Title' with replace values '[Managed Applications]'
+[2025-09-18 09:50:42.201 IST] [Thread ID: 3] [INFO] Waiting for Element to visible 'Profile Username' with replace values '[support+sandbox20@cloudeagle.ai]'
+[2025-09-18 09:50:42.237 IST] [Thread ID: 3] [INFO] Checking if Element is visible 'Dashboard Header'
+[2025-09-18 09:50:42.270 IST] [Thread ID: 3] [INFO] Getting text from Element 'Card Count Text' with replace values '[Managed Applications]'
+[2025-09-18 09:50:42.325 IST] [Thread ID: 3] [INFO] Clicking on Element 'Side Nav Menu' with replace values '[Applications]'
+[2025-09-18 09:50:42.469 IST] [Thread ID: 3] [INFO] [Actions] Moving on Element 'Applications'
+[2025-09-18 09:50:42.651 IST] [Thread ID: 3] [INFO] Waiting for Element to visible 'Applications Header'
+[2025-09-18 09:50:46.182 IST] [Thread ID: 3] [INFO] Waiting for Element to visible 'Card Container'
+[2025-09-18 09:50:46.221 IST] [Thread ID: 3] [INFO] Waiting for Element to visible 'Table Container'
+[2025-09-18 09:50:48.389 IST] [Thread ID: 3] [INFO] Getting Number of Elements 'Table Rows with Data Key' with replace values '[-1]'
+[2025-09-18 09:50:48.602 IST] [Thread ID: 3] [INFO] Scrolling into Element 'Last Visible Row'
+[2025-09-18 09:50:48.620 IST] [Thread ID: 3] [INFO] Getting Number of Elements 'Table Rows with Data Key' with replace values '[10]'
+[2025-09-18 09:50:49.001 IST] [Thread ID: 3] [INFO] Scrolling into Element 'Last Visible Row'
+[2025-09-18 09:50:49.016 IST] [Thread ID: 3] [INFO] Getting Number of Elements 'Table Rows with Data Key' with replace values '[20]'
+[2025-09-18 09:50:49.347 IST] [Thread ID: 3] [INFO] Scrolling into Element 'Last Visible Row'
+[2025-09-18 09:50:49.375 IST] [Thread ID: 3] [INFO] Getting Number of Elements 'Table Rows with Data Key' with replace values '[29]'
+[2025-09-18 09:50:59.453 IST] [Thread ID: 3] [INFO] Checking if Element is visible 'Enabled Table Next Page Icon'
+[2025-09-18 09:51:04.652 IST] [Thread ID: 3] [INFO] Element 'Enabled Table Next Page Icon' is not visible
+[2025-09-18 09:51:04.654 IST] [Thread ID: 3] [INFO] <=========== Test Passed : testVerifyManagedApplicationsCountShownInDashboard ===========>
+

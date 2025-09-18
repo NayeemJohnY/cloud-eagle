@@ -34,12 +34,34 @@ To run a specific test class (e.g., LoginPageTest):
 mvn test -Dtest=LoginPageTest
 ```
 
-To run tests with Allure reporting:
+To run tests:
 ```
 mvn clean test
+```
+To Serve & Generate Allure Report
 
-allure serve test-results/allure-results
+
+```
+# Serve Allure Report on Server
+allure serve test-results/allure-results 
+```
 OR
+
+```
+# Generate Static Allure Report without History
+allure generate test-results/allure-results --clean -o test-results/allure-report
+```
+OR 
+
+```
+# Generate Static Allure Report with History
+# Step 1: Save history from old report to the results folder
+cp -r test-results/allure-report/history test-results/allure-results/history 
+
+# Step 2: Remove the old report folder
+rm -r test-results/allure-report
+
+# Step 3: Generate a fresh report with a clean results folder
 allure generate test-results/allure-results --clean -o test-results/allure-report
 ```
 

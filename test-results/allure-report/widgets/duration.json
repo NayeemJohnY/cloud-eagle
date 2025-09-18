@@ -1,0 +1,1 @@
+[{"uid":"1558a2ab3f555ec6","name":"testShouldAbleToLoginWithValidCredentials","time":{"start":1758169200081,"stop":1758169216131,"duration":16050},"status":"passed","severity":"normal"},{"uid":"db8dabfbb51dc439","name":"testVerifyManagedApplicationsCountShownInDashboard","time":{"start":1758169228099,"stop":1758169264655,"duration":36556},"status":"passed","severity":"normal"}]
