@@ -48,9 +48,10 @@ services:
       - .:/workspace
     working_dir: /workspace
     environment:
+      ENV: ${ENV:-sandbox}
       BROWSER: ${BROWSER:-chrome}      # default to chrome if not set
       HEADLESS: ${HEADLESS:-true}      # default to true if not set
       GRID_URL: ${GRID_URL:-http://selenium-hub:4444/wd/hub}
       PARALLEL: ${PARALLEL:-false}
       TEST: ${TEST:-}
-    command: mvn clean test --Dbrowser=${BROWSER} -Dheadless=${HEADLESS} -Dtest=${TEST}
+    command: mvn clean test -Dgrid.url=${GRID_URL} -Denv=${ENV} -Dbrowser=${BROWSER} -Dheadless=${HEADLESS} -Dtest=${TEST}
