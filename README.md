@@ -37,7 +37,10 @@ mvn test -Dtest=LoginPageTest
 To run tests with Allure reporting:
 ```
 mvn clean test
+
 allure serve test-results/allure-results
+OR
+allure generate test-results/allure-results --clean -o test-results/allure-report
 ```
 
 ## Project Structure
