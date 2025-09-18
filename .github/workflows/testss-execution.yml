@@ -81,6 +81,7 @@ jobs:
           docker compose run --rm tests mvn test ${EXTRA_PARAMS}
 
       - name: Stop Docker Services (Selenium Grid, Maven)
+        if: always()
         run: |
           docker-compose logs selenium-hub
           docker-compose logs chrome
