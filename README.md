@@ -63,6 +63,9 @@ rm -r test-results/allure-report
 
 # Step 3: Generate a fresh report with a clean results folder
 allure generate test-results/allure-results --clean -o test-results/allure-report
+
+# single command
+cp -r test-results/allure-report/history test-results/allure-results/history && rm -r test-results/allure-report && allure generate test-results/allure-results  --clean -o  test-results/allure-report
 ```
 
 ## Project Structure

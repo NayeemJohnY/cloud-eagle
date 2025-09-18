@@ -5,7 +5,6 @@ import org.testng.annotations.Test;
 import pages.ApplicationsPage;
 import pages.DashboardPage;
 import pages.LoginPage;
-import pages.SideNavMenu;
 
 public class DashboardPageTest extends BaseTest {
 
@@ -20,11 +19,11 @@ public class DashboardPageTest extends BaseTest {
     Assert.assertTrue(dashboardPage.isUserLoggedInToDashboard(email), "User Login Failure");
 
     // Step 2: Get Application Count in Dashboard
-    int countFromDashboard = dashboardPage.getCountTextOfCard("Managed Applications");
+    String cardTitle = "Managed Applications";
+    int countFromDashboard = dashboardPage.getCountTextOfCard(cardTitle);
 
     // Step 3: Navigate to Applications Menu
-    SideNavMenu sideNavMenu = new SideNavMenu(driver);
-    sideNavMenu.navigateToMenuFromSideNav("Applications");
+    dashboardPage.navigateToCardMenu(cardTitle);
 
     // Step 4: Get Number of Applications in Applications Page
     ApplicationsPage applicationsPage = new ApplicationsPage(driver);
