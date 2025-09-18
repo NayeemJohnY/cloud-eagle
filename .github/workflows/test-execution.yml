@@ -1,0 +1,77 @@
+name: Test Execution
+
+on:
+  workflow_dispatch:
+    inputs:
+      env:
+        description: Select Test Environment
+        type: choice
+        options:
+          - sandbox
+          - prod
+
+      browser:
+        description: Select Browser
+        type: choice
+        options:
+          - chrome
+          - firefox
+          - edge
+
+      headless:
+        description: Run in Headless Mode
+        type: boolean
+        default: true
+
+      parallel:
+        description: Run Test in Parallel
+        type: boolean
+        default: false
+
+      test_name:
+        description: Test Method / Test class Name (e.g., MyTestClass#myTestMethod or MyTestClass1, MyTestClass2)
+        required: false
+        type: string
+
+jobs:
+  execute-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the Repository to Runner
+        uses: actions/checkout@v4
+
+      - name: Start Docker Services (Selenium Grid, Maven)
+        run: docker compose up -d
+      
+      - name: Execute Test
+        shell: bash
+        run: |
+          EXTRA_PARAMS="-Dgrid.url=http://selenium-hub:4444/wd/hub"
+          if ${{ inputs.parallel }} ; then
+            EXTRA_PARAMS+=" -Dparallel=true";
+          fi
+          if [ "${{ inputs.test_name }}" != "" ]; then
+            EXTRA_PARAMS+=' -Dtest=${{ inputs.test_name }}';
+          fi
+          if [ "${{ inputs.browser }}" != "" ]; then
+            EXTRA_PARAMS+=' -Dbrowser=${{ inputs.browser }}';
+          fi
+          if [ "${{ inputs.headless }}" != "" ]; then
+            EXTRA_PARAMS+=' -Dheadless=${{ inputs.headless }}';
+          fi
+          echo "Running with: mvn clean test ${EXTRA_PARAMS}"
+          docker compose run --rm tests mvn test ${EXTRA_PARAMS}
+      
+      - name: Stop Docker Services (Selenium Grid, Maven)
+        if: always()
+        run: |
+          docker compose down
+
+      - name: Upload Test Results
+        if: success() || failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: test-results
+          retention-days: 3
