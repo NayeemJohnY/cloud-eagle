@@ -59,7 +59,7 @@ jobs:
       - name: Execute Test
         shell: bash
         run: |
-          EXTRA_PARAMS="-Dgrid.url=http://localhost:4444/wd/hub"
+          EXTRA_PARAMS="-Dgrid.url=http://3.135.222.64:4444/wd/hub"
 
           if ${{ inputs.parallel }} ; then
             EXTRA_PARAMS+=" -Dparallel=true";
