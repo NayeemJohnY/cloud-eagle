@@ -34,13 +34,21 @@ To run a specific test class (e.g., LoginPageTest):
 mvn test -Dtest=LoginPageTest
 ```
 
-To run tests:
+To override browser and headless mode
 ```
-mvn clean test
+mvn test -Dbrowser=edge -Dheadless=true
 ```
+
+To run test in selenium grid
+```
+mvn test -Dbrowser=edge -Dgrid-url=http://18.191.37.169:4444/wd/hub
+```
+To run test for prod configuration
+```
+mvn test -Denv=prod
+```
+
 To Serve & Generate Allure Report
-
-
 ```
 # Serve Allure Report on Server
 allure serve test-results/allure-results 

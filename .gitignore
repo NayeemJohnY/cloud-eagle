@@ -1,3 +1,4 @@
 target
 .vscode
 test-results
+*.mp4
